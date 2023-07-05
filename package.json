@@ -1,0 +1,21 @@
+{
+  "name": "generic-filter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "kysely": "^0.25.0",
+    "mongoose": "^7.3.1",
+    "typeorm": "^0.3.17"
+  },
+  "devDependencies": {
+    "type-fest": "^3.12.0",
+    "typescript": "^5.1.6"
+  }
+}
