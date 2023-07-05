@@ -11,10 +11,11 @@ export class BaseTypeormService<Entity extends BaseEntity> extends BaseService<
   Entity,
   Repository<Entity>
 > {
-  qb: WhereExpressionBuilder;
+
   constructor(repository: Repository<Entity>) {
     super(repository);
   }
+
   async find(args: IArgs<Entity>): Promise<Entity[]> {
     const condition = new Brackets((qb) => {
       this.loop(args.where, (key, expression, operator, value, index) => {
@@ -23,6 +24,7 @@ export class BaseTypeormService<Entity extends BaseEntity> extends BaseService<
     });
     return this.repository.createQueryBuilder().where(condition).getMany();
   }
+
   async findOne(args: IArgs<Entity>): Promise<Entity | null> {
     const condition = new Brackets((qb) => {
       this.loop(args.where, (key, expression, operator, value, index) => {
@@ -31,6 +33,7 @@ export class BaseTypeormService<Entity extends BaseEntity> extends BaseService<
     });
     return this.repository.createQueryBuilder().where(condition).getOne();
   }
+
   handleOperators(
     qb: WhereExpressionBuilder,
     key: string,
@@ -72,6 +75,8 @@ export class BaseTypeormService<Entity extends BaseEntity> extends BaseService<
     }
     if (operator === "similar") {
     }
+
+    // recursively apply filter for or operator
     if (operator === "or") {
       qb.andWhere(
         new Brackets((qb) => {
@@ -81,6 +86,8 @@ export class BaseTypeormService<Entity extends BaseEntity> extends BaseService<
         })
       );
     }
+
+    // recursively apply filter for and operator
     if (operator === "and") {
       qb.andWhere(
         new Brackets((qb) => {

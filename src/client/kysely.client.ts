@@ -11,6 +11,7 @@ export class KyselyService<Entity, DB> extends BaseService<Entity, Kysely<DB>> {
     super(repository);
     this.tableName = tableName;
   }
+
   async findOne(args: IArgs<Entity>): Promise<Entity> {
     return this.repository
       .selectFrom(this.tableName)
@@ -24,6 +25,7 @@ export class KyselyService<Entity, DB> extends BaseService<Entity, Kysely<DB>> {
       })
       .executeTakeFirst() as Promise<Entity>;
   }
+
   async find(args: IArgs<Entity>): Promise<Entity[]> {
     return this.repository
       .selectFrom(this.tableName)
@@ -37,6 +39,7 @@ export class KyselyService<Entity, DB> extends BaseService<Entity, Kysely<DB>> {
       })
       .execute() as Promise<Entity[]>;
   }
+
   handleOperators(
     conditions: any[] = [],
     eb: ExpressionBuilder<any, any>,

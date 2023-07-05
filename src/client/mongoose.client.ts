@@ -8,7 +8,9 @@ export class MongooseService<Entity> extends BaseService<
   Entity,
   Model<Entity>
 > {
+  // this can be useful when it comes to handle transaction stuff, optional however!
   protected connection?: mongoose.Connection;
+
   constructor(repository: Model<Entity>, connection?: mongoose.Connection) {
     super(repository);
     this.connection = connection;
@@ -18,9 +20,11 @@ export class MongooseService<Entity> extends BaseService<
     const result = await this.findOne(args);
     return result != null;
   }
+
   create(args: PartialDeep<Entity>): Promise<Entity> {
     return this.repository.create(args);
   }
+
   async findOne(args: IArgs<Entity>): Promise<Entity> {
     const pipeline: PipelineStage.Match["$match"] = {};
     this.loop(args.where, (key, _, operator, value) => {
