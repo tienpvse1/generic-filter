@@ -1,14 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import mongoose, {
-  Callback,
-  FilterQuery,
-  Model,
-  PipelineStage,
-  QueryOptions,
-  UpdateQuery,
-  UpdateWithAggregationPipeline,
-  isValidObjectId,
-} from "mongoose";
+import mongoose, { Model, PipelineStage, isValidObjectId } from "mongoose";
 import { PartialDeep } from "type-fest";
 import { IArgs, OperatorKey } from "../interfaces/filter";
 import { BaseService } from "../interfaces/service";
